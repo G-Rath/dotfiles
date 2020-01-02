@@ -1,0 +1,5 @@
+.idea/
+.vscode/
+.terraform/
+node_modules/
+*.swp
