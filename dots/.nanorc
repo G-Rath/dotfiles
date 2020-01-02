@@ -1,0 +1,34 @@
+#set linenumbers
+set autoindent
+set tabstospaces
+set tabsize 2
+
+set positionlog
+set constantshow
+
+#include "~/.nano/nanorc/*.nanorc"
+include "~/.nano/nanorc/Dockerfile.nanorc"
+include "~/.nano/nanorc/cmake.nanorc"
+include "~/.nano/nanorc/csv.nanorc"
+include "~/.nano/nanorc/apacheconf.nanorc"
+include "~/.nano/nanorc/c.nanorc"
+include "~/.nano/nanorc/html.nanorc"
+include "~/.nano/nanorc/ini.nanorc"
+include "~/.nano/nanorc/ocaml.nanorc"
+include "~/.nano/nanorc/nginx.nanorc"
+include "~/.nano/nanorc/sh.nanorc"
+include "~/.nano/nanorc/json.nanorc"
+include "~/.nano/nanorc/js.nanorc"
+include "~/.nano/nanorc/ts.nanorc"
+include "~/.nano/nanorc/markdown.nanorc"
+include "~/.nano/nanorc/git.nanorc"
+include "~/.nano/nanorc/systemd.nanorc"
+include "~/.nano/nanorc/css.nanorc"
+include "~/.nano/nanorc/php.nanorc"
+include "~/.nano/nanorc/python.nanorc"
+include "~/.nano/nanorc/patch.nanorc"
+include "~/.nano/nanorc/makefile.nanorc"
+include "~/.nano/nanorc/nanorc.nanorc"
+include "~/.nano/nanorc/dotenv.nanorc"
+include "~/.nano/nanorc/yaml.nanorc"
+#extendsyntax 

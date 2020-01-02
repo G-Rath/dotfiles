@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+# WSL does not currently apply umask properly.
+if [ "$(umask)" = "0000" ]; then
+  umask 022
+fi
+
+# gets the value of an env value in the win32 host
+# 2>null is for surpressing errors, in particular warnings about UNC
+wcmd() { cmd.exe /C "$@" 2>/dev/null; }
+winenv() { cmd.exe /C "echo|set /p=%$1%" 2>/dev/null; }
+winenvpath() { wslpath $(winenv $1); }
+winenv-path() { wslpath $(winenv $1); }
+
+# nice alias for win c:\ drive
+export WROOT=$(wslpath C:\\)
+
+# nice alias for win32s %HOME%
+export WHOME=$(winenvpath HOME)
+export WBIN=$(winenvpath BIN)
+export WWORKSPACE=$(winenvpath WORKSPACE)
+
+### weasel-pageant - lets wsl use pageant running on host
+eval $($WROOT/weasel-pageant/weasel-pageant -rb -a $HOME/.weasel-pageant.sock)
+
+# point pgsql to win32-hosted postgres docker container
+export PGHOST=localhost
+export PGUSER=postgres
+
+# expose win32 hosted .aws creds to awscli in wsl
+export AWS_SHARED_CREDENTIALS_FILE="$WHOME/.aws/credentials"
+export AWS_CONFIG_FILE="$WHOME/.aws/config"
+export EB_SHARED_CREDENTIALS_FILE="$WHOME/.aws/credentials"
+export EB_CONFIG_FILE="$WHOME/.aws/config"
+
+export SSH_CONFIG_FILE="$WHOME/.ssh/config"
+
+export VERDACCIO_CONFIG_FILE="$WHOME/.config/verdaccio/config.yaml"
+
+complete -C aws_completer aws
+
+export DOCKER_HOST=tcp://localhost:2375
+
+# alias "clip.exe" to clip
+alias clip=clip.exe
+alias clippy=clip.exe
+
+alias ssh='ssh -F $SSH_CONFIG_FILE'
+alias scp='scp -F $SSH_CONFIG_FILE'
+alias zssh='zssh -F $SSH_CONFIG_FILE'
+
+alias edit_aws_config='nano $AWS_CONFIG_FILE'
+alias edit_ssh_config='nano $SSH_CONFIG_FILE'
+
+alias save_tmux_buffer_to_clipboard="tmux save-buffer - | clippy"
+
+# wsl doesn't have a wsl command
+alias wsl="cmd.exe /C 'start wsl'"
+
+e2p() {
+  results="$(cd_to_project ${1:?'Path required'})"
+
+  if [ -z "$results" ]; then
+    echo "no results"
+    return
+  fi
+
+  echo "$results"
+
+  explorer.exe "$(wslpath -w "$(echo "$results" | head -n1)")"
+}

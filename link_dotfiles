@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # iterate until no longer a symlink
+  DIR="$(cd -P "$(dirname "$SOURCE")" >/dev/null 2>&1 && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+
+  # check if relative symlink
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+DIR="$(cd -P "$(dirname "$SOURCE")" >/dev/null 2>&1 && pwd)"
+
+link_dotfile_to_home() {
+  file=${1:?'dotfile name is required'}
+
+  echo "linking $file"
+  ln -s "$DIR/dots/$file" "$HOME/$file"
+}
+
+link_dotfile_to_home ".prettierrc"
+link_dotfile_to_home ".terraformrc"
+link_dotfile_to_home ".nanorc"
+link_dotfile_to_home ".bash_aliases"
+link_dotfile_to_home ".bash_wsl"
+link_dotfile_to_home ".tmux.conf"
+
+echo "remember to source .bash_wsl if you're using wsl"
