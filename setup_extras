@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+command_exists?() {
+  command -v "$1" 2>&1 1>/dev/null
+}
+
 if [ ! -d "$HOME/.nano/nanorc" ]; then
   echo "installing nanorc..."
   git clone git@github.com:scopatz/nanorc.git "$HOME/.nano/nanorc"
@@ -20,4 +24,16 @@ if [ ! -d "$HOME/.tfenv" ]; then
   git clone https://github.com/tfutils/tfenv.git "$HOME/.tfenv"
 else
   echo "skipping tfenv: already installed"
+fi
+
+if ! command_exists? "rg"; then
+  # replace w/ this when on ubuntu 18.10
+  # sudo apt install ripgrep
+
+  echo "installing ripgrep..."
+  curl -LO https:/github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
+  sudo dpkg -i ripgrep_11.0.2_amd64.deb
+  rm ripgrep_11.0.2_amd64.deb
+else
+  echo "skipping ripgreg: already installed"
 fi
