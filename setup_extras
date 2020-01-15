@@ -11,14 +11,6 @@ else
   echo "skipping nanorc: already installed"
 fi
 
-if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-  echo "installing tpm..."
-  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
-  ~/.tmux/plugins/tpm/bin/install_plugins
-else
-  echo "skipping tpm: already installed"
-fi
-
 if [ ! -d "$HOME/.tfenv" ]; then
   echo "installing tfenv..."
   git clone https://github.com/tfutils/tfenv.git "$HOME/.tfenv"
