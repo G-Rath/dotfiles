@@ -29,3 +29,21 @@ if ! command_exists? "rg"; then
 else
   echo "skipping ripgreg: already installed"
 fi
+
+# only install wsl related extras if wslpath exists
+if ! command_exists? "wslpath"; then
+  echo "skiping wsl extras: no wslpath"
+else
+  weasel_c_path=$(wslpath 'C:\weasel-pageant')
+  if [ ! -d "$weasel_c_path" ]; then
+    weasel_zipname="weasel-pageant-1.4"
+    wget "https://github.com/vuori/weasel-pageant/releases/download/v1.4/$weasel_zipname.zip"
+
+    unzip "$weasel_zipname"
+    mv "$weasel_zipname" "$weasel_c_path"
+
+    rm "$weasel_zipname.zip"
+  else
+    echo "skipping weasel-pageant: already exists"
+  fi
+fi
