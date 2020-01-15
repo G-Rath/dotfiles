@@ -8,6 +8,7 @@ set constantshow
 
 #include "~/.nano/nanorc/*.nanorc"
 include "~/.nano/nanorc/Dockerfile.nanorc"
+include "~/.nano/nanorc/gradle.nanorc"
 include "~/.nano/nanorc/cmake.nanorc"
 include "~/.nano/nanorc/csv.nanorc"
 include "~/.nano/nanorc/apacheconf.nanorc"
@@ -28,7 +29,6 @@ include "~/.nano/nanorc/php.nanorc"
 include "~/.nano/nanorc/python.nanorc"
 include "~/.nano/nanorc/patch.nanorc"
 include "~/.nano/nanorc/makefile.nanorc"
-include "~/.nano/nanorc/nanorc.nanorc"
 include "~/.nano/nanorc/dotenv.nanorc"
 include "~/.nano/nanorc/yaml.nanorc"
-#extendsyntax 
+#extendsyntax
