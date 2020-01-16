@@ -6,7 +6,7 @@ command_exists?() {
 
 if [ ! -d "$HOME/.nano/nanorc" ]; then
   echo "installing nanorc..."
-  git clone git@github.com:scopatz/nanorc.git "$HOME/.nano/nanorc"
+  git clone https://github.com/scopatz/nanorc.git "$HOME/.nano/nanorc"
 else
   echo "skipping nanorc: already installed"
 fi
