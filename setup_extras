@@ -23,9 +23,15 @@ if ! command_exists? "rg"; then
   # sudo apt install ripgrep
 
   echo "installing ripgrep..."
-  curl -LO https:/github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
-  sudo dpkg -i ripgrep_11.0.2_amd64.deb
-  rm ripgrep_11.0.2_amd64.deb
+
+  ripgrep_deb="$HOME/ripgrep.deb"
+  curl -L https:/github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb -o "$ripgrep_deb"
+  if [ -f "$ripgrep_deb" ]; then
+    sudo dpkg -i "$ripgrep_deb"
+    rm -f "$ripgrep_deb"
+  else
+    echo "failed to download ripgrep - see above for reason"
+  fi
 else
   echo "skipping ripgreg: already installed"
 fi
