@@ -15,8 +15,8 @@ winenv-path() { wslpath $(winenv $1); }
 # nice alias for win c:\ drive
 export WROOT=$(wslpath C:\\)
 
-# nice alias for win32s %HOME%
-export WHOME=$(winenvpath HOME)
+# nice alias for win32s version of $HOME
+export WHOME=$(winenvpath UserProfile)
 export WBIN=$(winenvpath BIN)
 export WWORKSPACE=$(winenvpath WORKSPACE)
 
