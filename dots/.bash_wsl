@@ -37,8 +37,6 @@ export SSH_CONFIG_FILE="$WHOME/.ssh/config"
 
 export VERDACCIO_CONFIG_FILE="$WHOME/.config/verdaccio/config.yaml"
 
-complete -C aws_completer aws
-
 export DOCKER_HOST=tcp://localhost:2375
 
 # alias "clip.exe" to clip
