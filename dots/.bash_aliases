@@ -35,6 +35,8 @@ alias tssh="ssh -T git@github.com"
 # updates PS1 to be very short - useful when in deep directories, and using lots of tmux panels
 alias shorten_prompt="PS1='\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '"
 
+alias date_filename_stamp="date +'%FT%H-%M-%S%z'"
+
 c2p() {
   results="$(cd_to_project $1)"
 
