@@ -24,5 +24,6 @@ link_dotfile_to_home ".bash_completion"
 link_dotfile_to_home ".bash_aliases"
 link_dotfile_to_home ".bash_wsl"
 link_dotfile_to_home ".tmux.conf"
+link_dotfile_to_home ".ripgreprc"
 
 echo "remember to source .bash_wsl if you're using wsl"

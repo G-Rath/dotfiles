@@ -2,6 +2,8 @@ findinhere() {
   grep -rn "$@"
 }
 
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
 alias re-source='echo re-sourcing .profile... && source ~/.profile'
 
 alias tf=terraform
