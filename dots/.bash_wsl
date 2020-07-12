@@ -55,6 +55,9 @@ alias save_tmux_buffer_to_clipboard="tmux save-buffer - | clippy"
 # wsl doesn't have a wsl command
 alias wsl="cmd.exe /C 'start wsl'"
 
+# wsl doens't have a wt command
+alias wt='cmd.exe /C "start wt -d $(wslpath -w $PWD)"'
+
 e2p() {
   results="$(cd_to_project ${1:?'Path required'})"
 
