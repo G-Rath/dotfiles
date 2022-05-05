@@ -2,11 +2,16 @@ findinhere() {
   grep -rn "$@"
 }
 
+#alias docker-compose="docker compose"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 alias re-source='echo re-sourcing .profile... && source ~/.profile'
 
 alias tf=terraform
+alias tfi="terraform init"
+alias tfp="terraform plan"
+alias tfa="terraform apply"
+alias tfs="terraform state"
 
 complete -C terraform tf
 
@@ -56,3 +61,33 @@ alias ij='idea64.exe "$(wslpath -w $PWD)"'
 
 # comm <(git branch -r --merged origin/master) <(git branch -r --merged origin/production) -12
 # comm <(git branch -r --merged origin/master) <(git branch -r --merged origin/production) -12 | awk -F/ '/\/feature\/access/{print $2"/"$3}' | xargs -I % git push origin --delete %
+alias git_update_main='git checkout master && git fetch --all --prune && git pull'
+
+alias gfetch="git fetch --prune"
+alias gfetcha="git fetch --prune --all"
+alias gfa="git fetch --prune --all"
+
+alias shfmt="docker run --rm -v $PWD:/work tmknom/shfmt -i 2 -ci"
+alias pantheon=terminus
+alias rsync="rsync -P"
+alias count_folders_in_node_modules='find . -type d -name "node_modules" -exec find {} -mindepth 1 -maxdepth 1 -type d \; | wc -l'
+alias count_fds="lsof | wc -l"
+alias node-with-await="node --experimental-repl-await"
+alias enable_globstar="shopt -s globstar"
+alias audit_app_paths="npx audit-app --output paths | jq -nR '[inputs]'"
+alias audit_app_paths_sorted="npx audit-app --output paths | sort --numeric-sort | jq -nR '[inputs]'"
+alias ssm2ec2="node /c/Users/G-Rath/workspace/projects-ackama/aws-helpers/lib/bin/ssm2ec2.js"
+alias tfpl="terraform providers lock \
+  -platform=linux_arm64 \
+  -platform=linux_amd64 \
+  -platform=darwin_amd64 \
+  -platform=windows_amd64"
+alias tfpl2="terraform providers lock -platform=linux_amd64 -platform=darwin_amd64 -platform=windows_amd64"
+alias browse_coverage='browse "$(wslpath -w coverage/lcov-report/index.html)"'
+
+pnano() {
+  file=${1?'must be provided'}
+  nano "$file"
+  prettier --write "$file"
+}
+alias go_test_with_coverage="go test ./... -coverprofile coverage/c.out; go tool cover -html=coverage/c.out -o coverage/coverage.html"
