@@ -91,3 +91,10 @@ pnano() {
   prettier --write "$file"
 }
 alias go_test_with_coverage="go test ./... -coverprofile coverage/c.out; go tool cover -html=coverage/c.out -o coverage/coverage.html"
+
+aws_list_ec2_instances() {
+  aws ec2 describe-instances \
+    --filters "Name=instance-state-name,Values=running" \
+    --query 'Reservations[].Instances[] | [][Tags[?Key==`Name`]|[0].Value, InstanceId] | sort_by(@, &[0])' \
+    --output table
+}
