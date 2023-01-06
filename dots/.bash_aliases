@@ -98,3 +98,14 @@ aws_list_ec2_instances() {
     --query 'Reservations[].Instances[] | [][Tags[?Key==`Name`]|[0].Value, InstanceId] | sort_by(@, &[0])' \
     --output table
 }
+
+push_my_ssh_key_to_ec2_instance() {
+  instance_id=${1:?'first arg must be instance id'}
+  os_user=${2:-$DF_AWS_DEFAULT_EC2_USER}
+  public_key_path=${3:-'~/.ssh/id_ed25519.pub'}
+
+  aws ec2-instance-connect send-ssh-public-key \
+    --instance-id "$instance_id" \
+    --instance-os-user "$os_user" \
+    --ssh-public-key "file://$public_key_path"
+}
