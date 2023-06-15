@@ -88,7 +88,7 @@ alias browse_coverage='browse "$(wslpath -w coverage/lcov-report/index.html)"'
 pnano() {
   file=${1?'must be provided'}
   nano "$file"
-  prettier --write "$file"
+  npx prettier --write "$file"
 }
 alias go_test_with_coverage="go test ./... -coverprofile coverage/c.out; go tool cover -html=coverage/c.out -o coverage/coverage.html"
 
