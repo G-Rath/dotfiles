@@ -99,6 +99,35 @@ aws_list_ec2_instances() {
     --output table
 }
 
+aws_id_of_first_running_ec2_instance() {
+  name_partial="$1"
+  n="${2:-0}"
+
+  aws ec2 describe-instances \
+    --filters Name=instance-state-name,Values=running Name=tag:Name,Values="*$name_partial*" \
+    --query "Reservations[].Instances[][InstanceId]|[$n]" \
+    --output text
+}
+
+ssh_into_first_ec2_instance() {
+  name_partial="$1"
+  n="${2:-0}"
+
+  output=$(
+    aws ec2 describe-instances \
+      --filters Name=instance-state-name,Values=running Name=tag:Name,Values="*$name_partial*" \
+      --query "Reservations[].Instances[] | [][Tags[?Key==\`Name\`]|[0].Value, InstanceId] | sort_by(@, &[0]) | [$n]" \
+      --output text
+  )
+
+  if [ $? -eq 0 ]; then
+    read -r instance_name instance_id <<<"$output"
+    echo "sshing as $$DF_AWS_DEFAULT_EC2_USER into $instance_id ($instance_name)"
+
+    ssh "$DF_AWS_DEFAULT_EC2_USER"@"$instance_id"
+  fi
+}
+
 push_my_ssh_key_to_ec2_instance() {
   instance_id=${1:?'first arg must be instance id'}
   os_user=${2:-$DF_AWS_DEFAULT_EC2_USER}
