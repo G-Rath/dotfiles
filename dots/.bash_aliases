@@ -57,7 +57,7 @@ c2p() {
 alias cursor_show="node -e \"process.stdout.write('\x1b[?25h');\""
 alias cursor_hide="node -e \"process.stdout.write('\x1b[?25l');\""
 
-alias ij='idea64.exe "$(wslpath -w $PWD)"'
+alias ij='idea64.exe "$(wslpath -w $PWD | sed s/wsl.localhost/wsl$/)"'
 
 # comm <(git branch -r --merged origin/master) <(git branch -r --merged origin/production) -12
 # comm <(git branch -r --merged origin/master) <(git branch -r --merged origin/production) -12 | awk -F/ '/\/feature\/access/{print $2"/"$3}' | xargs -I % git push origin --delete %
