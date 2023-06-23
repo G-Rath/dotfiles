@@ -57,7 +57,9 @@ c2p() {
 alias cursor_show="node -e \"process.stdout.write('\x1b[?25h');\""
 alias cursor_hide="node -e \"process.stdout.write('\x1b[?25l');\""
 
-alias ij='idea64.exe "$(wslpath -w $PWD | sed s/wsl.localhost/wsl$/)"'
+#alias ij='idea64.exe "$(wslpath -w $PWD | sed s/wsl.localhost/wsl$/)"'
+alias ij='idea64.exe "$(wslpath -w $PWD)"'
+#alias ij='idea64.exe "$(wslpath -w $PWD | sed s/wsl.localhost/wsl$/)"'
 
 # comm <(git branch -r --merged origin/master) <(git branch -r --merged origin/production) -12
 # comm <(git branch -r --merged origin/master) <(git branch -r --merged origin/production) -12 | awk -F/ '/\/feature\/access/{print $2"/"$3}' | xargs -I % git push origin --delete %
@@ -122,7 +124,7 @@ ssh_into_first_ec2_instance() {
 
   if [ $? -eq 0 ]; then
     read -r instance_name instance_id <<<"$output"
-    echo "sshing as $$DF_AWS_DEFAULT_EC2_USER into $instance_id ($instance_name)"
+    echo "sshing as $DF_AWS_DEFAULT_EC2_USER into $instance_id ($instance_name)"
 
     ssh "$DF_AWS_DEFAULT_EC2_USER"@"$instance_id"
   fi
